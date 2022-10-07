@@ -18,36 +18,14 @@ def extract_activity_action(manifestPath, project):
         tree = ET.parse(f)
         # 逐个修个node
     for node in tree.iter():
-        if node.tag == "activity":
+        if node.tag == "component" and "Activity" in node.attrib['type']:
             actnum = actnum + 1
-            print("[+] Find a Activity Node!")
-            activity = node.attrib['{http://schemas.android.com/apk/res/android}name']
-            if activity not in d:
-                d[activity] = []
-            for child in node.iter():
-                if child.tag == 'intent-filter':
-                    action_category_pair = ['', '']
-                    for item in child.iter():
-                        if item.tag == 'action':
-                            action_category_pair[0] = item.attrib['{http://schemas.android.com/apk/res/android}name']
-                        if item.tag == 'category':
-                            action_category_pair[1] = item.attrib['{http://schemas.android.com/apk/res/android}name']
-                    d[activity].append(action_category_pair)
-        if node.tag == "activity-alias":
-            print("[+] Find a Activity alias Node!")
-            target_act = node.attrib['{http://schemas.android.com/apk/res/android}targetActivity']
-            if target_act not in d:
-                d[target_act] = []
-            for child in node.iter():
-                if child.tag == 'intent-filter':
-                    action_category_pair = ['', '']
-                    for item in child.iter():
-                        if item.tag == 'action':
-                            action_category_pair[0] = item.attrib['{http://schemas.android.com/apk/res/android}name']
-                        if item.tag == 'category':
-                            action_category_pair[1] = item.attrib['{http://schemas.android.com/apk/res/android}name']
-                    d[target_act].append(action_category_pair)
-
+            d[node.attrib['name']] = []
+            print(node.tag, node.attrib)
+            for child1 in node.iter():
+                if child1.tag == "intent_filter":
+                    action_category_pair = [child1.attrib['action'], child1.attrib['category']]
+                    d[node.attrib['name']].append(action_category_pair)
     project.actnum = actnum
     return d
 
@@ -57,7 +35,7 @@ def parseManifest(p):
     if not os.path.exists(p.unpack_path):
         print("cannot find the decompiled app: " + p.p_id)
         return
-    manifestPath = os.path.join(p.unpack_path, "AndroidManifest.xml")
+    manifestPath = os.path.join(p.iccobj.ctg, "componentInfo.xml")
     print("[+] manifestPath: ", manifestPath)
     pairs = extract_activity_action(manifestPath, p)
     # format of pairs: {activity1: {actions: action1, category: cate1 }} -----discard
@@ -65,7 +43,7 @@ def parseManifest(p):
     ##get all activity and their attributes
     return pairs
 
-
+'''
 if __name__ == '__main__':
     test = "com.gaurav.avnc"
     path = "../testfile/AndroidManifest.xml"
@@ -77,3 +55,4 @@ if __name__ == '__main__':
         if act.split(test)[1] not in actlist:
             actlist.append(act.split(test)[1])
     print(actlist)
+'''
