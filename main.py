@@ -189,20 +189,19 @@ if __name__ == '__main__':
         except:
             project_list.remove(p)
 
-
     # get widget id
     for p in project_list:
         try:
             p.entrances = paseCTG.parseCTG(p)
             print(p.entrances)
         except:
-            project_list.remove(p)
-
+            print("get widget id False")
 
     # parseManifest
     for p in project_list:
         try:
             parse_result = parseM.parseManifest(p)
+            print()
             if parse_result != {}:
                 print("[+] get parseManifest!")
             else:
@@ -260,9 +259,9 @@ if __name__ == '__main__':
         # os.remove(p.apk_path)
         # 卸载并清理环境
 
-
+    '''
     for p in project_list:
         try:
             fuzzscreen.init(p, phone_list[0])
         except:
-            pass
+            pass'''

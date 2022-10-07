@@ -96,12 +96,15 @@ def parseSootIR(jimple, obj, project):
     else:
         print("[+] rootIR is exists: ", rootIR)
     print("[ROOT IR]: ", rootIR)
+    flag = False
     if obj.fun == "void onClick(android.view.View)":
         onClick.clickparse(rootIR, obj)
+        flag = True
     elif obj.fun == "void onClick(android.content.DialogInterface,int)":
         pass
     elif obj.fun == "boolean onOptionsItemSelected(android.view.MenuItem)":
-        opitem.opitemparse(rootIR, obj)
+        #opitem.opitemparse(rootIR, obj)
+        pass
     elif obj.fun == "boolean onNavigationItemSelected(android.view.MenuItem)":
         pass
     elif obj.fun == "boolean onPreferenceClick(androidx.preference.Preference)":
@@ -111,7 +114,8 @@ def parseSootIR(jimple, obj, project):
     else:
         pass
     # obj.putinfo()
-    findViewId(obj, Soot_ir, used_name, project)
+    if flag:
+        findViewId(obj, Soot_ir, used_name, project)
 
 
 def findViewId(obj, Soot_ir, used_name, project):

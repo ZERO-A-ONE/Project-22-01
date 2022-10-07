@@ -10,7 +10,7 @@ androidJar = ""
 outputDir = ""
 time = "30"
 maxPathNumber = "100"
-clients = ["CTGClient", "IROutputClient", "ICCSpecClient"]
+clients = ["CTGClient", "IROutputClient"]
 #clients = ["CallGraphClient", "ManifestClient", "IROutputClient", "FragmentClient", "CTGClient", "ICCSpecClient"]
 
 

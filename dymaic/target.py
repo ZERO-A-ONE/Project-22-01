@@ -63,7 +63,7 @@ def getarget(project, activity, widgets):
     target = []
     print("[PARSE TARGET]")
     print("[ACTIVITY] : ", activity)
-    ET.register_namespace('android', 'http://schemas.android.com/apk/res/android')
+   # ET.register_namespace('android', 'http://schemas.android.com/apk/res/android')
     # ET.XML()
     with open(project.tmptxt, 'rt') as f:
         tree = ET.parse(f)

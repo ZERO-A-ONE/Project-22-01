@@ -248,13 +248,16 @@ def run(project, device, screen, fragment):
         # 初始化父ScreenID
         dparentScreen = screen.vector
 
-        # Find Target Widget
-        all_widget = device.uiauto()
-        coveract = project.used_name + currentACT
-        target_widget = target.getarget(project, coveract, all_widget)
-        for widget in target_widget:
-            new_widwget = mywidget.mywidget(widget)
-            widget_stack.append(new_widwget)
+        try:
+            # Find Target Widget
+            all_widget = device.uiauto()
+            coveract = project.used_name + currentACT
+            target_widget = target.getarget(project, coveract, all_widget)
+            for widget in target_widget:
+                new_widwget = mywidget.mywidget(widget)
+                widget_stack.append(new_widwget)
+        except:
+            pass
 
 
         # 构建初始Widget Stack

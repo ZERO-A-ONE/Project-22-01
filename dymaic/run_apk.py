@@ -117,11 +117,14 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
             project.actcoverage.append(activity)
 
         # Find Target Widget
-        all_widget = device.uiauto()
-        target_widget = target.getarget(project, activity, all_widget)
-        for widget in target_widget:
-            new_widwget = mywidget.mywidget(widget)
-            widget_stack.append(new_widwget)
+        try:
+            all_widget = device.uiauto()
+            target_widget = target.getarget(project, activity, all_widget)
+            for widget in target_widget:
+                new_widwget = mywidget.mywidget(widget)
+                widget_stack.append(new_widwget)
+        except:
+            pass
 
         # 构建初始Widget Stack
         for widget in device.uiauto(clickable="true"):
@@ -185,8 +188,6 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
             if tmptrans not in project.inittrans:
                 print("[REAL NEW Trans] : ", tmptrans)
                 project.inittrans.append(tmptrans)
-
-
         startact.run(project, device, new_screen, currentFra)
         if activity not in scess_start_activity:
             scess_start_activity.append(activity)
@@ -208,17 +209,18 @@ def run(project, device):
     print("[pairs]", pairs)
     scess_start_activity = []
     for activity, other in pairs.items():
-        print("[OTHER]: ")
-        print(other)
-        # This is the defined format of uiautomator
-        component = project.used_name + '/' + activity
-        dcommnd = []
-        other.append(['', ''])
-        for s in other:
-            try:
-                start(project, device, s, activity, component, dcommnd, scess_start_activity)
-            except:
-                continue
+        if activity not in project.actcoverage:
+            print("[OTHER]: ")
+            print(other)
+            # This is the defined format of uiautomator
+            component = project.used_name + '/' + activity
+            dcommnd = []
+            other.append(['', ''])
+            for s in other:
+                try:
+                    start(project, device, s, activity, component, dcommnd, scess_start_activity)
+                except:
+                    continue
     print("[+] successful start Activity: ", scess_start_activity)
     print("[+] all task kill: ", project.p_id)
     #project.printAll()
