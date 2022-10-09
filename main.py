@@ -11,7 +11,7 @@ from structure import project
 from pret import apktool
 from repkg import repkg
 from enhance import iccbot, myjadx
-from fuzz import fuzzscreen
+from fuzz import buildscreen
 # config
 result_folder = ""
 apks_folder = ""
@@ -258,10 +258,3 @@ if __name__ == '__main__':
         #phone_list[0].uiauto.app_uninstall(p.used_name)
         # os.remove(p.apk_path)
         # 卸载并清理环境
-
-    '''
-    for p in project_list:
-        try:
-            fuzzscreen.init(p, phone_list[0])
-        except:
-            pass'''

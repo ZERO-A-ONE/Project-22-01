@@ -3,7 +3,7 @@ import os
 import subprocess
 import time
 from dymaic import target
-from fuzz import intype
+from fuzz import intype, buildscreen
 from structure import mywidget
 from tools import getshot, eigenvector, findres
 from structure import screen as myscreen
@@ -29,15 +29,16 @@ def restartScreen(project, screen, device):
         result = subprocess.check_output(cmd, shell=True)
         print(result)
         time.sleep(0.5)
+        '''
         cmd = "adb " + " -s " + device.dev_id + " shell dumpsys activity activities " + " | grep mResumedActivity"
-        result = subprocess.check_output(cmd, shell=True)
+        result = subprocess.check_output(cmd, shell=True)'''
         texactivity = screen.start
-        check_name = project.used_name + '/' + texactivity
-        if check_name in result.decode("utf8"):
+        #check_name = project.used_name + '/' + texactivity
+        if texactivity in result.decode("utf8"):
             print("[+] start Act !")
             break
         else:
-            print("[-] can't start: ", check_name)
+            print("[-] can't start: ", texactivity)
         num = num + 1
     if screen.widget_command != []:
         try:
@@ -215,6 +216,7 @@ def run(project, device, screen, fragment):
                 pass
 
         currentFra = ""
+        NewFrag = False
         # Is new Fragment?
         try:
             currentFra = currFrag.getcurfrag(device, project)
@@ -229,6 +231,7 @@ def run(project, device, screen, fragment):
             if fragment.name != currentFra.name:
                 tmptrans = fragment.name + "->" + currentFra.name
                 print("[NEW Trans] : ", tmptrans)
+                NewFrag = True
                 if tmptrans not in project.inittrans:
                     print("[Real NEW Trans] : ", tmptrans)
                     project.inittrans.append(tmptrans)
@@ -248,6 +251,9 @@ def run(project, device, screen, fragment):
         # 初始化父ScreenID
         dparentScreen = screen.vector
 
+        # 构建初始Widget Stack
+        new_widget_stack = []
+
         try:
             # Find Target Widget
             all_widget = device.uiauto()
@@ -255,23 +261,22 @@ def run(project, device, screen, fragment):
             target_widget = target.getarget(project, coveract, all_widget)
             for widget in target_widget:
                 new_widwget = mywidget.mywidget(widget)
-                widget_stack.append(new_widwget)
+                new_widget_stack.append(new_widwget)
         except:
             pass
 
 
-        # 构建初始Widget Stack
-        widget_stack = []
+
         for widget in device.uiauto(clickable="true"):
             # print(widget.info)
             flag = True
-            for twidget in widget_stack:
+            for twidget in new_widget_stack:
                 if twidget.ui2.info['bounds'] == widget.info['bounds']:
                     flag = False
                     break
             if flag:
                 new_widwget = mywidget.mywidget(widget)
-                widget_stack.append(new_widwget)
+                new_widget_stack.append(new_widwget)
             else:
                 continue
 
@@ -291,7 +296,7 @@ def run(project, device, screen, fragment):
         startact = screen.start
         # 判断是否为新出现的场景特征
         # if project.isAliveScreen(screenvector):
-        if project.isAliveScreen(screenvector, dw_commd, act, startact, dparentScreen, project.tmppng):
+        if project.isAliveScreen(screenvector, dw_commd, act, startact, dparentScreen, project.tmppng) or NewFrag:
             print("[+] find a new screen: ", screenvector)
             project.screenlist.append(screenvector)
             # 将新的Screen转换关系添加到项目中
@@ -323,11 +328,19 @@ def run(project, device, screen, fragment):
         # 对新的Screen进行截图
         dshot = getshot.shot(device.uiauto, project, screenvector)
         # 建立新的场景对象
-        new_screen = myscreen.screen(dxml, screenvector, dtype, dcommnd, dparentScreen, dshot, widget_stack, act,
-                                     startact)
+        print("Screen Screen")
+        new_screen = myscreen.screen(xml=dxml, vector=screenvector, typeAct=dtype, command=dcommnd, parentScreen=dparentScreen, shot=dshot, widgetstack=new_widget_stack, act=act,
+                                     startact=startact)
         new_screen.widget_command = dw_commd
+        new_screen.printAll()
         # 将新的Screen对象加入
         project.screenobject.append(new_screen)
+        if screenvector not in project.actScreenlist and screenvector not in project.NoneactScreenlist:
+            project.NoneactScreenlist.add(screenvector)
+            with open(project.NoneactScreen, "a") as f:
+                f.writelines(act + " : " + screenvector + "\n")
+        #buildscreen.init(new_screen, project)
+
         time.sleep(0.5)
         # 进行递归深度探索
         if currentFra == "":

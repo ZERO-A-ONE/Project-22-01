@@ -2,6 +2,8 @@ import os
 from graphviz import Digraph
 from skimage.metrics import structural_similarity as compare_ssim
 from skimage import io
+
+from fuzz import buildscreen
 from structure import iccbot
 
 
@@ -107,6 +109,29 @@ class project:
         self.storge = os.path.join(self.res_dir, "entry")
         if not os.path.exists(self.storge):
             os.mkdir(self.storge)
+        self.startActCmd = os.path.join(self.res_dir, "StartCMD.txt")
+        if not os.path.exists(self.startActCmd):
+            with open(self.startActCmd, "w") as f:
+                f.writelines("")
+        self.startActCmdRes = os.path.join(self.res_dir, "StartCMDResult.txt")
+        if not os.path.exists(self.startActCmdRes):
+            with open(self.startActCmdRes, "w") as f:
+                f.writelines("")
+
+        self.successact = os.path.join(self.res_dir, "succeACT.txt")
+        if not os.path.exists(self.successact):
+            with open(self.successact, "w") as f:
+                f.writelines("")
+        self.actScreen = os.path.join(self.res_dir, "actScreen.txt")
+        if not os.path.exists(self.actScreen):
+            with open(self.actScreen, "w") as f:
+                f.writelines("")
+        self.NoneactScreen = os.path.join(self.res_dir, "NoneactScreen.txt")
+        if not os.path.exists(self.NoneactScreen):
+            with open(self.NoneactScreen, "w") as f:
+                f.writelines("")
+        self.actScreenlist = set()
+        self.NoneactScreenlist = set()
 
 
     def setAct(self, actlist):
@@ -162,7 +187,6 @@ class project:
             # 检查Vector
             if v == vector:
                 print("[-] This Screen is alive!")
-                '''
                 print("[V] : ", vector)
                 for obj in self.screenobject:
                     if obj.vector == vector:
@@ -175,10 +199,11 @@ class project:
                             obj.start = startact
                             obj.parentScreen = parentsc
                             print("[+] Find a new Screen Path!")
+                            #buildscreen.init(obj, self)
                             return False
                     else:
                         continue
-                print("[-] This Screen is alive!")'''
+                print("[-] This Screen is alive!")
                 return False
 
         '''
@@ -199,6 +224,7 @@ class project:
     def printscreen(self):
         for screen in self.screenobject:
             screen.printAll()
+            buildscreen.init(screen, self)
 
     def printTrans(self):
         print("========== Project Trans ==========")
