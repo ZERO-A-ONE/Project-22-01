@@ -12,11 +12,12 @@ from pret import apktool
 from repkg import repkg
 from enhance import iccbot, myjadx
 from fuzz import buildscreen
+
 # config
 result_folder = ""
 apks_folder = ""
 iccbot_dir = ""
-device_model = 0  # 0: remote 1: local
+device_model = 1  # 0: remote 1: local
 
 
 def init_apk(apk_dir, apkname):
@@ -47,8 +48,6 @@ def init_apk(apk_dir, apkname):
     p.root_dir = os.getcwd()
     p.apk_name = apkname
     return p
-
-
 
 
 if __name__ == '__main__':
@@ -201,6 +200,10 @@ if __name__ == '__main__':
     for p in project_list:
         try:
             parse_result = parseM.parseManifest(p)
+
+            with open(os.path.join(p.res_dir, "actnum.txt"), "w") as f:
+                f.writelines(str(p.actnum) + "\n")
+
             print()
             if parse_result != {}:
                 print("[+] get parseManifest!")
@@ -242,19 +245,24 @@ if __name__ == '__main__':
         print("[-] None Phone list!")
         exit(0)
 
+
+
+
     suceess_project = []
     fault_project = []
     # start dynamic
     for p in project_list:
         time.sleep(1)
-        #run_apk.run(p, phone_list[0])
+        # run_apk.run(p, phone_list[0])
         try:
             run_apk.run(p, phone_list[0])
         except:
             phone_list[0].uiauto.app_stop(p.used_name)
-            #phone_list[0].uiauto.app_uninstall(p.used_name)
+            # phone_list[0].uiauto.app_uninstall(p.used_name)
             continue
         phone_list[0].uiauto.app_stop(p.used_name)
-        #phone_list[0].uiauto.app_uninstall(p.used_name)
+        with open(os.path.join(p.res_dir, "step.txt"), "w") as f:
+            f.writelines(str(p.totalstep) + "\n")
+        # phone_list[0].uiauto.app_uninstall(p.used_name)
         # os.remove(p.apk_path)
         # 卸载并清理环境

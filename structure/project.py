@@ -132,7 +132,7 @@ class project:
                 f.writelines("")
         self.actScreenlist = set()
         self.NoneactScreenlist = set()
-
+        self.totalstep = 0
 
     def setAct(self, actlist):
         self.activity = actlist

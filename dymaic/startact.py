@@ -77,6 +77,7 @@ def isNewActivity(project, oldact, device):
 
 
 def run(project, device, screen, fragment):
+    project.total_step = project.total_step + 1
     """
     :param project: 项目对象
     :param device: 设备对象
@@ -129,6 +130,7 @@ def run(project, device, screen, fragment):
         print(widgetu2.info)
         try:
             widgetu2.click()
+            project.total_step = project.total_step + 1
         except:
             print("[-] widget don't click: ", widgetu2.info)
             continue

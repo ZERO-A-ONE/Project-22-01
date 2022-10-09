@@ -34,6 +34,7 @@ def extract_activity_action(manifestPath, project):
                     # action_category_pair = [child1.attrib['action'], child1.attrib['category']]
                     d[node.attrib['name']].append(action_category_pair)
     project.actnum = actnum
+
     return d
 
 

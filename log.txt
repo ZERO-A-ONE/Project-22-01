@@ -1,15 +1,13 @@
-2022-10-09 03:02:18 165828 [+] We will write mylog messages for here: /home/syc/Downloads/DEV/rebuild/log.txt
-2022-10-09 03:02:18 166085 [+] Get apks folder: /home/syc/Downloads/DEV/rebuild/apks
-2022-10-09 03:02:18 166272 [+] Mkdir new result folder: /home/syc/Downloads/DEV/rebuild/result
-2022-10-09 03:02:18 166419 [+] find 1 : v2rayNG_1.2.0.apk
-2022-10-09 03:02:18 166509 [+] Total apks: 1
-2022-10-09 03:03:10 525865 [new_icc_res] : /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/iccbot/v2rayNG_1.2.0
-2022-10-09 03:03:10 526014 [iccbot_dir] : /home/syc/Downloads/DEV/rebuild/enhance/icc
-2022-10-09 03:03:10 526062 [apks_dir] : /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/unpack/dist
-2022-10-09 03:03:10 526099 [apk_name] : v2rayNG_1.2.0.apk
-2022-10-09 03:03:10 526141 [iccjar_path] : /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar
-2022-10-09 03:03:10 526180 [androidJar] : /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms
-2022-10-09 03:03:10 526219 [outputDir] : /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/iccbot
-2022-10-09 03:03:10 526328 java -jar /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/unpack/dist  -name v2rayNG_1.2.0.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  30  -maxPathNumber  100  -client CTGClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/iccbot 
-2022-10-09 03:05:40 143316 java -jar /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/unpack/dist  -name v2rayNG_1.2.0.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  30  -maxPathNumber  100  -client IROutputClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/iccbot 
-2022-10-09 03:06:00 180310 java -jar /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/unpack/dist  -name v2rayNG_1.2.0.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  30  -maxPathNumber  100  -client ICCSpecClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/com.v2ray.ang-278/iccbot 
+2022-10-09 05:26:32 699123 [+] We will write mylog messages for here: /home/syc/Downloads/DEV/rebuild/log.txt
+2022-10-09 05:26:32 699351 [+] Get apks folder: /home/syc/Downloads/DEV/rebuild/apks
+2022-10-09 05:26:32 699487 [+] Get result folder: /home/syc/Downloads/DEV/rebuild/result
+2022-10-09 05:26:32 699620 [+] find 1 : com.simplemobiletools.draw.pro_73.apk
+2022-10-09 05:26:32 699726 [+] Total apks: 1
+2022-10-09 05:26:41 318098 [new_icc_res] : /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/iccbot/com.simplemobiletools.draw.pro_73
+2022-10-09 05:26:41 318258 [iccbot_dir] : /home/syc/Downloads/DEV/rebuild/enhance/icc
+2022-10-09 05:26:41 318316 [apks_dir] : /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/unpack/dist
+2022-10-09 05:26:41 318356 [apk_name] : com.simplemobiletools.draw.pro_73.apk
+2022-10-09 05:26:41 318393 [iccjar_path] : /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar
+2022-10-09 05:26:41 318428 [androidJar] : /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms
+2022-10-09 05:26:41 318463 [outputDir] : /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/iccbot
+2022-10-09 05:26:41 318577 java -jar /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/unpack/dist  -name com.simplemobiletools.draw.pro_73.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  30  -maxPathNumber  100  -client CTGClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/iccbot 

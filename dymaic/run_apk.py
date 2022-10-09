@@ -15,6 +15,7 @@ from fuzz import buildscreen
 
 def start(project, device, other_s, activity, component, dcommnd, scess_start_activity):
     # activity = ""
+    project.total_step = project.total_step + 1
     print("[START ACTIVITY]: ", activity)
     flag = False
     s = other_s
@@ -72,8 +73,10 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
                     project.actcoverage.append(activity)
                     with open(project.successact, "a") as f:
                         f.writelines(activity + "\n")
+
         else:
             return
+    '''
     else:
         print("[+] Use uiauto!")
         device.uiauto.app_start(project.used_name, activity)
@@ -88,7 +91,8 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
                 print("[+] successful append new coverage activity: ", activity)
                 print("[+] Now act coverage :", project.actcoverage)
                 project.actcoverage.append(activity)
-    '''
+        project.total_step = project.total_step + 1
+    
     # 检查是否正确进入我们设定的Activity内
     num = 0
     while True:
@@ -207,6 +211,7 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
 
 # 开启动态探索
 def run(project, device):
+    #project.total_step = 0
     # install apk
     apk_path = project.apk_path
     cmd = "adb -s " + device.dev_id + " install " + apk_path
@@ -230,8 +235,8 @@ def run(project, device):
                     flag = start(project, device, s, activity, component, dcommnd, scess_start_activity)
                 except:
                     continue
-            if flag:
-                continue
+        if flag:
+            continue
     print("[+] successful start Activity: ", scess_start_activity)
     print("[+] all task kill: ", project.p_id)
     # project.printAll()
