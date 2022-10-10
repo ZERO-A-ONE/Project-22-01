@@ -15,7 +15,8 @@ from fuzz import buildscreen
 
 def start(project, device, other_s, activity, component, dcommnd, scess_start_activity):
     # activity = ""
-    project.total_step = project.total_step + 1
+    cmd = ""
+    # project.total_step = project.total_step + 1
     print("[START ACTIVITY]: ", activity)
     flag = False
     s = other_s
@@ -26,6 +27,7 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
         print("[action]: ", action)
     if category != '':
         print("[category]: ", category)
+    myextras = []
     try:
         myextras = extra.get_extra_paras(project, activity)
     except:
@@ -34,90 +36,41 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
         print("[+] GET EXTRAS: ", myextras)
     else:
         print("[-] DON'T GET EXTRAS")
-    if action != '' or category != '':
-        cmd = "timeout 20 adb -s " + device.dev_id + " shell am start -S -n " + component
-        if not action == '':
-            cmd = cmd + ' -a ' + action
-        if not category == '':
-            cmd = cmd + ' -c ' + category
-        # 补充参数
+    cmd = "timeout 20s adb -s " + device.dev_id + " shell am start -S -n " + component
+    if not action == '':
+        cmd = cmd + ' -a ' + action
+    if not category == '':
+        cmd = cmd + ' -c ' + category
+    # 补充参数
+    if myextras != [] and not None:
         for ex in myextras:
             cmd = cmd + ' ' + ex
-        cmd = cmd + ' -W'
+    cmd = cmd + ' -W'
+    print("[cmd]: ", cmd)
+    with open(project.startActCmd, "a") as f:
+        f.writelines(cmd + "\n")
+    result = subprocess.check_output(cmd, shell=True)
+    with open(project.startActCmdRes, "a") as f:
+        f.writelines(result.decode('utf8') + "\n")
+    if b"Status: ok" in result:
+        dcommnd.append(cmd)
         print("[cmd]: ", cmd)
-        with open(project.startActCmd, "a") as f:
-            f.writelines(cmd + "\n")
-
-        result = subprocess.check_output(cmd, shell=True)
-        with open(project.startActCmdRes, "a") as f:
-            f.writelines(result.decode('utf8') + "\n")
-        if b"Status: ok" in result:
-            dcommnd.append(cmd)
-            print("[cmd]: ", cmd)
-            time.sleep(0.5)
-            '''
-            if not b"Error" in result:
-                cmd = "adb -s " + device.dev_id + " shell dumpsys activity activities | grep Run #"
-                #print("[cmd]: ", cmd)
-                result = subprocess.check_output(cmd, shell=True).decode('utf8')
-                #print(result)
-                #print("project.used_name", project.used_name)
-            '''
-            short_act = activity.split(project.used_name)[1]
-            print("[short_act]: ", short_act)
-            if short_act in result.decode("utf8"):
-                print("[+] short act in Run result!")
-                if activity not in project.actcoverage:
-                    print("[+] successful append new coverage activity: ", activity)
-                    print("[+] Now act coverage :", project.actcoverage)
-                    project.actcoverage.append(activity)
-                    with open(project.successact, "a") as f:
-                        f.writelines(activity + "\n")
-
-        else:
-            return
-    '''
-    else:
-        print("[+] Use uiauto!")
-        device.uiauto.app_start(project.used_name, activity)
-        # device.uiauto.app_start(project.used_name)
         time.sleep(0.5)
-        cmd = "adb -s " + device.dev_id + " shell dumpsys activity activities | grep Run #"
-        result = subprocess.check_output(cmd, shell=True)
         short_act = activity.split(project.used_name)[1]
         print("[short_act]: ", short_act)
-        if short_act in result:
+        if short_act in result.decode("utf8"):
+            print("[+] short act in Run result!")
             if activity not in project.actcoverage:
                 print("[+] successful append new coverage activity: ", activity)
                 print("[+] Now act coverage :", project.actcoverage)
                 project.actcoverage.append(activity)
-        project.total_step = project.total_step + 1
-    
-    # 检查是否正确进入我们设定的Activity内
-    num = 0
-    while True:
-        if num == 5:
-            flag = True
-            break
-        try:
-            time.sleep(0.5)
-            cmd = "adb " + " -s " + device.dev_id + " shell dumpsys activity activities " + " | grep mResumedActivity"
-            result = subprocess.check_output(cmd, shell=True)
-            texactivity = activity.split(project.used_name)[1]
-            check_name = project.used_name + '/' + texactivity
-            if check_name in result.decode("utf8"):
-                print("[+] start Act !")
-                break
-        except:
-            pass
-        num = num + 1
+                with open(project.successact, "a") as f:
+                    f.writelines(activity + "\n")
+    else:
+        return False
 
-    if flag:
-        return
-    '''
-
-    if activity not in project.activity:
-        project.activity.append(activity)
+    # if activity not in project.activity:
+    # project.activity.append(activity)
     # 初始滑建立Screnn对象
     dxml = device.uiauto.dump_hierarchy(compressed=True)
     # 临时写入布局文件信息
@@ -131,16 +84,16 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
     print("[act]: ", act)
     if activity not in project.actcoverage:
         project.actcoverage.append(activity)
-
+    '''
     # Find Target Widget
     try:
         all_widget = device.uiauto()
-        target_widget = target.getarget(project, activity, all_widget)
+        target_widget = target.getarget(project, activity, all_widget, dxml)
         for widget in target_widget:
             new_widwget = mywidget.mywidget(widget)
             widget_stack.append(new_widwget)
     except:
-        pass
+        pass'''
 
     # 构建初始Widget Stack
     for widget in device.uiauto(clickable="true"):
@@ -174,7 +127,7 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
         f.close()
     else:
         os.remove(project.tmppng)
-        return
+        return False
 
     shot_dir = getshot.shot(device.uiauto, project, screenvector)
     dshot = shot_dir
@@ -209,10 +162,10 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
 
     return True
 
+
 # 开启动态探索
 def run(project, device):
-    #project.total_step = 0
-    # install apk
+    # project.total_step = 0
     apk_path = project.apk_path
     cmd = "adb -s " + device.dev_id + " install " + apk_path
     result = subprocess.check_output(cmd, shell=True)
@@ -223,18 +176,19 @@ def run(project, device):
     scess_start_activity = []
     for activity, other in pairs.items():
         flag = False
-        if activity not in project.actcoverage:
-            print("[OTHER]: ")
-            print(other)
-            # This is the defined format of uiautomator
-            component = project.used_name + '/' + activity
-            dcommnd = []
-            other.append(['', ''])
-            for s in other:
-                try:
-                    flag = start(project, device, s, activity, component, dcommnd, scess_start_activity)
-                except:
-                    continue
+        # if activity not in project.actcoverage:
+        print("[OTHER]: ")
+        print(other)
+        # This is the defined format of uiautomator
+        component = project.used_name + '/' + activity
+        dcommnd = []
+        other.append(['', ''])
+        for s in other:
+            print("Try to start Act: ", component)
+            try:
+                flag = start(project, device, s, activity, component, dcommnd, scess_start_activity)
+            except:
+                continue
         if flag:
             continue
     print("[+] successful start Activity: ", scess_start_activity)

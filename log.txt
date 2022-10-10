@@ -1,13 +1,16 @@
-2022-10-09 05:26:32 699123 [+] We will write mylog messages for here: /home/syc/Downloads/DEV/rebuild/log.txt
-2022-10-09 05:26:32 699351 [+] Get apks folder: /home/syc/Downloads/DEV/rebuild/apks
-2022-10-09 05:26:32 699487 [+] Get result folder: /home/syc/Downloads/DEV/rebuild/result
-2022-10-09 05:26:32 699620 [+] find 1 : com.simplemobiletools.draw.pro_73.apk
-2022-10-09 05:26:32 699726 [+] Total apks: 1
-2022-10-09 05:26:41 318098 [new_icc_res] : /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/iccbot/com.simplemobiletools.draw.pro_73
-2022-10-09 05:26:41 318258 [iccbot_dir] : /home/syc/Downloads/DEV/rebuild/enhance/icc
-2022-10-09 05:26:41 318316 [apks_dir] : /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/unpack/dist
-2022-10-09 05:26:41 318356 [apk_name] : com.simplemobiletools.draw.pro_73.apk
-2022-10-09 05:26:41 318393 [iccjar_path] : /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar
-2022-10-09 05:26:41 318428 [androidJar] : /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms
-2022-10-09 05:26:41 318463 [outputDir] : /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/iccbot
-2022-10-09 05:26:41 318577 java -jar /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/unpack/dist  -name com.simplemobiletools.draw.pro_73.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  30  -maxPathNumber  100  -client CTGClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/com.simplemobiletools.draw.pro-73/iccbot 
+2022-10-10 06:04:29 228075 [+] We will write mylog messages for here: /home/syc/Downloads/DEV/rebuild/log.txt
+2022-10-10 06:04:29 228263 [+] Get apks folder: /home/syc/Downloads/DEV/rebuild/apks
+2022-10-10 06:04:29 228353 [+] Get result folder: /home/syc/Downloads/DEV/rebuild/result
+2022-10-10 06:04:29 228453 [+] find 1 : io.homeassistant.companion.android.minimal_2738.apk
+2022-10-10 06:04:29 228737 [+] Total apks: 1
+2022-10-10 06:04:50 614128 [new_icc_res] : /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/iccbot/io.homeassistant.companion.android.minimal_2738
+2022-10-10 06:04:50 614288 [iccbot_dir] : /home/syc/Downloads/DEV/rebuild/enhance/icc
+2022-10-10 06:04:50 614334 [apks_dir] : /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/unpack/dist
+2022-10-10 06:04:50 614372 [apk_name] : io.homeassistant.companion.android.minimal_2738.apk
+2022-10-10 06:04:50 614407 [iccjar_path] : /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar
+2022-10-10 06:04:50 614443 [androidJar] : /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms
+2022-10-10 06:04:50 614479 [outputDir] : /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/iccbot
+2022-10-10 06:04:50 614590 timeout 20m java -jar -Xmx6g /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/unpack/dist  -name io.homeassistant.companion.android.minimal_2738.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  20  -maxPathNumber  1000  -client CTGClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/iccbot 
+2022-10-10 06:24:50 908334 timeout 20m java -jar -Xmx6g /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/unpack/dist  -name io.homeassistant.companion.android.minimal_2738.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  20  -maxPathNumber  1000  -client IROutputClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/iccbot 
+2022-10-10 06:25:22 894625 [-] CTGResult dir is not exists
+2022-10-10 06:25:22 894764 [-] ICCSpecification dir is not exists

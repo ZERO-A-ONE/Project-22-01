@@ -17,7 +17,7 @@ from fuzz import buildscreen
 result_folder = ""
 apks_folder = ""
 iccbot_dir = ""
-device_model = 1  # 0: remote 1: local
+device_model = 0  # 0: remote 1: local
 
 
 def init_apk(apk_dir, apkname):
@@ -147,36 +147,38 @@ if __name__ == '__main__':
         # pass
         try:
             iccbot.init(p, iccbot_dir, pwd_dir)
+            p.initicc()
             if not os.path.exists(p.iccobj.root_dir):
                 print("[-] root dir is not exists")
                 wlog.wlog("[-] root dir is not exists")
-                continue
+                #continue
             if not os.path.exists(p.iccobj.callgraph):
                 print("[-] CallGraphInfo dir is not exists")
                 wlog.wlog("[-] CallGraphInfo dir is not exists")
-                continue
+                #continue
             if not os.path.exists(p.iccobj.ctg):
                 print("[-] CTGResult dir is not exists")
                 wlog.wlog("[-] CTGResult dir is not exists")
-                continue
+                #continue
             if not os.path.exists(p.iccobj.fragment):
                 print("[-] FragmentInfo dir is not exists")
                 wlog.wlog("[-] FragmentInfo dir is not exists")
-                continue
+                #continue
             if not os.path.exists(p.iccobj.iccsep):
                 print("[-] ICCSpecification dir is not exists")
                 wlog.wlog("[-] ICCSpecification dir is not exists")
-                continue
+                #continue
             if not os.path.exists(p.iccobj.manifest):
                 print("[-] ManifestInfo dir is not exists")
                 wlog.wlog("[-] ManifestInfo dir is not exists")
-                continue
+                #continue
             if not os.path.exists(p.iccobj.soot):
                 print("[-] SootIRInfo dir is not exists")
                 wlog.wlog("[-] SootIRInfo dir is not exists")
-                continue
+                #continue
         except:
-            project_list.remove(p)
+            pass
+            #project_list.remove(p)
 
     # check unpack info
     for p in project_list:
@@ -188,13 +190,14 @@ if __name__ == '__main__':
         except:
             project_list.remove(p)
 
+    '''
     # get widget id
     for p in project_list:
         try:
             p.entrances = paseCTG.parseCTG(p)
             print(p.entrances)
         except:
-            print("get widget id False")
+            print("get widget id False")'''
 
     # parseManifest
     for p in project_list:

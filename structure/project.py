@@ -281,4 +281,10 @@ class project:
             f.writelines('Coverage: ' + str(float(float(len(self.actcoverage)) / float(self.actnum))) + '\n')
 
     def initicc(self):
-        self.iccobj = iccbot.iccbotres(self.icc_res)
+        print("[#] Start init ICC OBJ")
+        try:
+            print("[icc_res] : ", self.icc_res)
+            self.iccobj = iccbot.iccbotres(self.icc_res)
+            print("[-] Successfull init ICC OBJ")
+        except:
+            print("[-] Fail init ICC OBJ")

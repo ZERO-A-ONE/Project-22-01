@@ -18,7 +18,8 @@ def extract_activity_action(manifestPath, project):
         tree = ET.parse(f)
         # 逐个修个node
     for node in tree.iter():
-        if node.tag == "component" and "Activity" in node.attrib['type']:
+        print(node.tag, node.attrib)
+        if node.tag == "component" and node.attrib['type'] == "Activity" :
             actnum = actnum + 1
             d[node.attrib['name']] = []
             print(node.tag, node.attrib)
@@ -41,8 +42,10 @@ def extract_activity_action(manifestPath, project):
 def parseManifest(p):
     print("========== Parsing manifest file of '%s.apk' ==========" % p.p_id)
     if not os.path.exists(p.unpack_path):
-        print("cannot find the decompiled app: " + p.p_id)
+        print("[-] cannot find the decompiled app: " + p.p_id)
         return
+    else:
+        print("[+] find the decompiled app: " + p.p_id)
     manifestPath = os.path.join(p.iccobj.ctg, "componentInfo.xml")
     print("[+] manifestPath: ", manifestPath)
     pairs = extract_activity_action(manifestPath, p)

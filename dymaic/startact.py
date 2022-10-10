@@ -77,7 +77,7 @@ def isNewActivity(project, oldact, device):
 
 
 def run(project, device, screen, fragment):
-    project.total_step = project.total_step + 1
+    #project.total_step = project.total_step + 1
     """
     :param project: 项目对象
     :param device: 设备对象
@@ -130,7 +130,7 @@ def run(project, device, screen, fragment):
         print(widgetu2.info)
         try:
             widgetu2.click()
-            project.total_step = project.total_step + 1
+            #project.total_step = project.total_step + 1
         except:
             print("[-] widget don't click: ", widgetu2.info)
             continue
@@ -255,18 +255,18 @@ def run(project, device, screen, fragment):
 
         # 构建初始Widget Stack
         new_widget_stack = []
-
+        '''
         try:
             # Find Target Widget
             all_widget = device.uiauto()
             coveract = project.used_name + currentACT
-            target_widget = target.getarget(project, coveract, all_widget)
+            target_widget = target.getarget(project, coveract, all_widget, dxml)
             for widget in target_widget:
                 new_widwget = mywidget.mywidget(widget)
                 new_widget_stack.append(new_widwget)
         except:
             pass
-
+        '''
 
 
         for widget in device.uiauto(clickable="true"):
