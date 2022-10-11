@@ -1,16 +1,15 @@
-2022-10-10 06:04:29 228075 [+] We will write mylog messages for here: /home/syc/Downloads/DEV/rebuild/log.txt
-2022-10-10 06:04:29 228263 [+] Get apks folder: /home/syc/Downloads/DEV/rebuild/apks
-2022-10-10 06:04:29 228353 [+] Get result folder: /home/syc/Downloads/DEV/rebuild/result
-2022-10-10 06:04:29 228453 [+] find 1 : io.homeassistant.companion.android.minimal_2738.apk
-2022-10-10 06:04:29 228737 [+] Total apks: 1
-2022-10-10 06:04:50 614128 [new_icc_res] : /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/iccbot/io.homeassistant.companion.android.minimal_2738
-2022-10-10 06:04:50 614288 [iccbot_dir] : /home/syc/Downloads/DEV/rebuild/enhance/icc
-2022-10-10 06:04:50 614334 [apks_dir] : /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/unpack/dist
-2022-10-10 06:04:50 614372 [apk_name] : io.homeassistant.companion.android.minimal_2738.apk
-2022-10-10 06:04:50 614407 [iccjar_path] : /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar
-2022-10-10 06:04:50 614443 [androidJar] : /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms
-2022-10-10 06:04:50 614479 [outputDir] : /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/iccbot
-2022-10-10 06:04:50 614590 timeout 20m java -jar -Xmx6g /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/unpack/dist  -name io.homeassistant.companion.android.minimal_2738.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  20  -maxPathNumber  1000  -client CTGClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/iccbot 
-2022-10-10 06:24:50 908334 timeout 20m java -jar -Xmx6g /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/unpack/dist  -name io.homeassistant.companion.android.minimal_2738.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  20  -maxPathNumber  1000  -client IROutputClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/io.homeassistant.companion.android.minimal-2738/iccbot 
-2022-10-10 06:25:22 894625 [-] CTGResult dir is not exists
-2022-10-10 06:25:22 894764 [-] ICCSpecification dir is not exists
+2022-10-10 23:24:12 259100 [+] We will write mylog messages for here: /home/syc/Downloads/DEV/rebuild/log.txt
+2022-10-10 23:24:12 259302 [+] Get apks folder: /home/syc/Downloads/DEV/rebuild/apks
+2022-10-10 23:24:12 259418 [+] Get result folder: /home/syc/Downloads/DEV/rebuild/result
+2022-10-10 23:24:12 259690 [+] find 1 : myNav.apk
+2022-10-10 23:24:12 259807 [+] Total apks: 1
+2022-10-10 23:24:31 412248 [new_icc_res] : /home/syc/Downloads/DEV/rebuild/result/com.example.mynav-1/iccbot/myNav
+2022-10-10 23:24:31 412393 [iccbot_dir] : /home/syc/Downloads/DEV/rebuild/enhance/icc
+2022-10-10 23:24:31 412443 [apks_dir] : /home/syc/Downloads/DEV/rebuild/result/com.example.mynav-1/unpack/dist
+2022-10-10 23:24:31 412481 [apk_name] : myNav.apk
+2022-10-10 23:24:31 412518 [iccjar_path] : /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar
+2022-10-10 23:24:31 412554 [androidJar] : /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms
+2022-10-10 23:24:31 412636 [outputDir] : /home/syc/Downloads/DEV/rebuild/result/com.example.mynav-1/iccbot
+2022-10-10 23:24:31 412762 timeout 20m java -jar -Xmx6g /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/com.example.mynav-1/unpack/dist  -name myNav.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  20  -maxPathNumber  1000  -client CTGClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/com.example.mynav-1/iccbot 
+2022-10-10 23:24:50 056633 timeout 20m java -jar -Xmx6g /home/syc/Downloads/DEV/rebuild/enhance/icc/ICCBot.jar  -path /home/syc/Downloads/DEV/rebuild/result/com.example.mynav-1/unpack/dist  -name myNav.apk  -androidJar  /home/syc/Downloads/DEV/rebuild/enhance/icc/lib/platforms  -time  20  -maxPathNumber  1000  -client IROutputClient  -outputDir /home/syc/Downloads/DEV/rebuild/result/com.example.mynav-1/iccbot 
+2022-10-10 23:24:59 195499 [-] ICCSpecification dir is not exists

@@ -185,6 +185,9 @@ def run(project, device, screen, fragment):
         if coveract not in project.actcoverage:
             project.actcoverage.append(coveract)
 
+
+        newActivity = False
+
         flag = False
         if not isNewActivity(project, screen.act, device):
             print("A Different Act Name: ", currentACT)
@@ -214,11 +217,13 @@ def run(project, device, screen, fragment):
                 print("A New Act Name: ", coveract)
                 project.activity.append(coveract)
                 flag = True
+                newActivity = True
             else:
                 pass
 
         currentFra = ""
         NewFrag = False
+        realnewfrag = False
         # Is new Fragment?
         try:
             currentFra = currFrag.getcurfrag(device, project)
@@ -235,8 +240,10 @@ def run(project, device, screen, fragment):
                 print("[NEW Trans] : ", tmptrans)
                 NewFrag = True
                 if tmptrans not in project.inittrans:
+                    realnewfrag = True
                     print("[Real NEW Trans] : ", tmptrans)
                     project.inittrans.append(tmptrans)
+
         except:
             pass
 
@@ -250,8 +257,8 @@ def run(project, device, screen, fragment):
         f = open(project.tmptxt, 'w')
         f.write(dxml)
         f.close()
-        # 初始化父ScreenID
-        dparentScreen = screen.vector
+        # 初始化父Screen Object
+        dparentScreen = screen
 
         # 构建初始Widget Stack
         new_widget_stack = []
@@ -331,9 +338,17 @@ def run(project, device, screen, fragment):
         dshot = getshot.shot(device.uiauto, project, screenvector)
         # 建立新的场景对象
         print("Screen Screen")
-        new_screen = myscreen.screen(xml=dxml, vector=screenvector, typeAct=dtype, command=dcommnd, parentScreen=dparentScreen, shot=dshot, widgetstack=new_widget_stack, act=act,
+
+        new_screen = myscreen.screen(xml=dxml, vector=screenvector, typeAct=dtype, command=dcommnd, shot=dshot, widgetstack=new_widget_stack, act=act,
                                      startact=startact)
         new_screen.widget_command = dw_commd
+        # build double screen list
+        new_screen.parentScreen = screen
+        screen.sonScreen = new_screen
+        if currentFra != "":
+            new_screen.fragment = currentFra.name
+        if NewFrag:
+            new_screen.startscreen = True
         new_screen.printAll()
         # 将新的Screen对象加入
         project.screenobject.append(new_screen)
@@ -341,7 +356,12 @@ def run(project, device, screen, fragment):
             project.NoneactScreenlist.add(screenvector)
             with open(project.NoneactScreen, "a") as f:
                 f.writelines(act + " : " + screenvector + "\n")
-        #buildscreen.init(new_screen, project)
+            if not newActivity:
+                with open(project.transitionScreen, "a") as f:
+                    f.writelines(act + " : " + screenvector + "\n")
+
+        if newActivity:
+            new_screen.newact = True
 
         time.sleep(0.5)
         # 进行递归深度探索

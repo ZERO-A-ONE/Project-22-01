@@ -1,5 +1,5 @@
 class screen:
-    def __init__(self, xml, vector, typeAct: bool, command: list, parentScreen, shot, widgetstack, act, startact):
+    def __init__(self, xml, vector, typeAct: bool, command: list, shot, widgetstack, act, startact):
         """
         :param xml: 对应的布局XML文件
         :param vector: 对应的特征向量
@@ -29,13 +29,16 @@ class screen:
         # 启动的所属的Activity
         self.start = startact
         # 设置父Screen节点
-        if parentScreen == "":
-            self.parentScreen = "self"
-            self.start = self.act
-        else:
-            self.parentScreen = parentScreen
+        self.parentScreen = ""
+        # setting son node
+        self.sonScreen = ""
+        # is first activity
+        self.newact = False
         # 组件栈
         self.widgetstack = widgetstack
+        # fragment name
+        self.fragment = ""
+        self.startscreen = False
         # 打印构建信息
         print("====== new screen object create ======")
         print("[vector] : ", self.vector)

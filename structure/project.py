@@ -75,6 +75,13 @@ class project:
         # pkg转换图
         self.pkg_dog = Digraph(comment='PKG Transition Graph')
         self.pkg_gv = os.path.join(res_dir, 'pkg.gv')
+        # iccbot转换图
+        self.iccbot_dog = Digraph(comment='ICCBOT Transition Graph')
+        self.iccbot_gv = os.path.join(res_dir, 'ICCBOT.gv')
+        # Total转换图
+        self.total_dog = Digraph(comment='Total Transition Graph')
+        self.total_gv = os.path.join(res_dir, 'total.gv')
+
         # 对应的布局XML保存地址
         self.layout_dir = os.path.join(self.res_dir, "layout")
         if not os.path.exists(self.layout_dir):
@@ -130,6 +137,11 @@ class project:
         if not os.path.exists(self.NoneactScreen):
             with open(self.NoneactScreen, "w") as f:
                 f.writelines("")
+        self.transitionScreen = os.path.join(self.res_dir, "transitionScreen.txt")
+        if not os.path.exists(self.transitionScreen):
+            with open(self.transitionScreen, "w") as f:
+                f.writelines("")
+
         self.actScreenlist = set()
         self.NoneactScreenlist = set()
         self.totalstep = 0
@@ -245,16 +257,20 @@ class project:
             with open(totaltrans, 'a') as f:
                 f.writelines(trans + "\n")
             print(trans)
+
+
         print("[Activity]")
         for act in self.activitytrans:
             with open(acttxt, 'a') as f:
                 f.writelines(act + "\n")
             print(act)
+
         print("[Screen]")
         for sce in self.screentrans:
             with open(scrtxt, 'a') as f:
                 f.writelines(sce + "\n")
             print(sce)
+
         print("[PKG]")
         for pkg in self.pkgtrans:
             with open(pkgxt, 'a') as f:
@@ -263,22 +279,42 @@ class project:
 
     # 保存转换关系图
     def savegv(self):
+        try:
+            for trans in self.inittrans:
+                father = trans.split('->')[0]
+                son = trans.split('->')[-1]
+                self.total_dog.node(father, father)
+                self.total_dog.node(son, son)
+                self.total_dog.edge(father, son)
+            self.total_dog.render(self.total_gv, view=True)
+        except:
+            pass
+
+        try:
+            with open(self.icc_res, "r") as f:
+                for line in f.readlines():
+                    father = line.split('->')[0]
+                    son = line.split('->')[-1]
+                    self.iccbot_dog.node(father, father)
+                    self.iccbot_dog.node(son, son)
+                    self.iccbot_dog.edge(father, son)
+            self.iccbot_dog.render(self.iccbot_gv, view=True)
+        except:
+            pass
+        '''
+        project.stg_dog.node(screen.vector, screen.vector)
+        except:
+        pass
+
+        try:
+        project.stg_dog.node(screenvector, screenvector)
+        project.stg_dog.edge(screen.vector, screenvector)
+        
+
         self.atg_dog.render(self.atg_gv, view=True)
         self.stg_dog.render(self.stg_gv, view=True)
-        self.pkg_dog.render(self.pkg_gv, view=True)
+        self.pkg_dog.render(self.pkg_gv, view=True)'''
 
-    # 计算并保存覆盖率数据
-    def coverage(self):
-        cover_path = os.path.join(self.res_dir, 'cover.txt')
-        print('Total ACT NUM: ' + str(self.actnum))
-        print('Cover ACT NUM: ' + str(len(self.actcoverage)))
-        print('Cover SCE NUM: ' + str(len(self.scecoverage)))
-        print('Coverage: ' + str(float(float(len(self.actcoverage)) / float(self.actnum))))
-        with open(cover_path, 'a') as f:
-            f.writelines('Total ACT NUM: ' + str(self.actnum) + '\n')
-            f.writelines('Cover ACT NUM: ' + str(len(self.actcoverage)) + '\n')
-            f.writelines('Cover SCE NUM: ' + str(len(self.scecoverage)) + '\n')
-            f.writelines('Coverage: ' + str(float(float(len(self.actcoverage)) / float(self.actnum))) + '\n')
 
     def initicc(self):
         print("[#] Start init ICC OBJ")

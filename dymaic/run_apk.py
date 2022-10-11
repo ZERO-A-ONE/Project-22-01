@@ -137,12 +137,12 @@ def start(project, device, other_s, activity, component, dcommnd, scess_start_ac
 
     # 建立新的场景对象
     print("Activity Screen")
-    new_screen = screen.screen(dxml, screenvector, dtype, dcommnd, dparentScreen, dshot, widget_stack,
-                               act,
-                               act)
+    new_screen = screen.screen(xml=dxml, vector=screenvector, typeAct=dtype, command=dcommnd, shot=dshot, widgetstack=widget_stack,
+                               act=act, startact=act)
     new_screen.printAll()
     project.screenobject.append(new_screen)
     project.actScreenlist.add(screenvector)
+    new_screen.newact = True
     with open(project.actScreen, "a") as f:
         f.writelines(activity + " : " + screenvector + "\n")
     # buildscreen.init(new_screen, project)
@@ -197,18 +197,18 @@ def run(project, device):
     # 卸载并清理环境
     # device.uiauto.app_clear(project.used_name)
     # device.uiauto.app_uninstall(project.used_name)
-
+    '''
     try:
         project.printscreen()
     except:
         pass
-    '''
+    
     try:
         project.coverage()
     except:
         pass
-    '''
+    
     try:
         project.printTrans()
     except:
-        pass
+        pass'''

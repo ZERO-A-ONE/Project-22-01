@@ -12,6 +12,7 @@ from pret import apktool
 from repkg import repkg
 from enhance import iccbot, myjadx
 from fuzz import buildscreen
+from tools import transcreen
 
 # config
 result_folder = ""
@@ -151,34 +152,34 @@ if __name__ == '__main__':
             if not os.path.exists(p.iccobj.root_dir):
                 print("[-] root dir is not exists")
                 wlog.wlog("[-] root dir is not exists")
-                #continue
+                # continue
             if not os.path.exists(p.iccobj.callgraph):
                 print("[-] CallGraphInfo dir is not exists")
                 wlog.wlog("[-] CallGraphInfo dir is not exists")
-                #continue
+                # continue
             if not os.path.exists(p.iccobj.ctg):
                 print("[-] CTGResult dir is not exists")
                 wlog.wlog("[-] CTGResult dir is not exists")
-                #continue
+                # continue
             if not os.path.exists(p.iccobj.fragment):
                 print("[-] FragmentInfo dir is not exists")
                 wlog.wlog("[-] FragmentInfo dir is not exists")
-                #continue
+                # continue
             if not os.path.exists(p.iccobj.iccsep):
                 print("[-] ICCSpecification dir is not exists")
                 wlog.wlog("[-] ICCSpecification dir is not exists")
-                #continue
+                # continue
             if not os.path.exists(p.iccobj.manifest):
                 print("[-] ManifestInfo dir is not exists")
                 wlog.wlog("[-] ManifestInfo dir is not exists")
-                #continue
+                # continue
             if not os.path.exists(p.iccobj.soot):
                 print("[-] SootIRInfo dir is not exists")
                 wlog.wlog("[-] SootIRInfo dir is not exists")
-                #continue
+                # continue
         except:
             pass
-            #project_list.remove(p)
+            # project_list.remove(p)
 
     # check unpack info
     for p in project_list:
@@ -248,9 +249,6 @@ if __name__ == '__main__':
         print("[-] None Phone list!")
         exit(0)
 
-
-
-
     suceess_project = []
     fault_project = []
     # start dynamic
@@ -264,8 +262,20 @@ if __name__ == '__main__':
             # phone_list[0].uiauto.app_uninstall(p.used_name)
             continue
         phone_list[0].uiauto.app_stop(p.used_name)
-        with open(os.path.join(p.res_dir, "step.txt"), "w") as f:
-            f.writelines(str(p.totalstep) + "\n")
         # phone_list[0].uiauto.app_uninstall(p.used_name)
         # os.remove(p.apk_path)
         # 卸载并清理环境
+
+    for p in project_list:
+        try:
+            transcreen.parsetrans(p)
+        except:
+            pass
+        try:
+            p.printTrans()
+        except:
+            pass
+        try:
+            p.savegv()
+        except:
+            pass
